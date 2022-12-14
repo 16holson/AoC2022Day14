@@ -1,6 +1,7 @@
 sandCount = 0
 maxY = 0
 
+
 def readFile():
     file = open("InputData.txt", "r")
     return file
@@ -37,9 +38,10 @@ def drawRocks(cave, rocks):
                     for x in range((second[0] - first[0])+1):
                         cave[first[1]][first[0]+x] = 1
 
-# def setFloor(cave, floor):
-#     for i in range(len(cave[0])):
-#         cave[floor][i] = 1
+
+def setFloor(cave, floor):
+    for i in range(len(cave[0])):
+        cave[floor][i] = 1
 
 
 def simSand(cave, start):
@@ -47,7 +49,7 @@ def simSand(cave, start):
     currPosition = start
     while(True):
         # Check if next position is out of bounds
-        if(currPosition[0]+1 > len(cave[0]) < currPosition[0]+1 or currPosition[1]+1 > len(cave)-1):
+        if(cave[start[1]][start[0]] == 9):
             return False
         # Check below current position
         elif(cave[currPosition[1]+1][currPosition[0]] == 0):
@@ -63,30 +65,26 @@ def simSand(cave, start):
             currPosition[0] = currPosition[0] + 1
             currPosition[1] = currPosition[1] + 1
             continue
+        # Found open position
         else:
-
             cave[currPosition[1]][currPosition[0]] = 9
             sandCount += 1
             return True
 
 
-
-
 def main():
     file = readFile()
-    cave = [[0 for i in range(1000)] for j in range(200)]
-    print(len(cave))
-    print(len(cave[0]))
+    cave = [[0 for i in range(675)] for j in range(170)]
     for line in file:
         rocks = line.strip().split(" -> ")
         if(len(rocks) > 0):
             drawRocks(cave, rocks)
-    #setFloor(cave, maxY+2)
+    setFloor(cave, maxY+2)
     while(True):
         if(not simSand(cave, [500, 0])):
             break
-    for i in range(len(cave)):
-       print(cave[i])
+    # for i in range(len(cave)):
+    #    print(cave[i])
     print(f"Total sand: {sandCount}")
     file.close()
 

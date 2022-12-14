@@ -37,7 +37,7 @@ def simSand(cave, start):
     currPosition = start
     while(True):
         # Check if next position is out of bounds
-        if(currPosition[0]+1 > len(cave[0]) < currPosition[0]+1 or currPosition[1]+1 > len(cave)-1):
+        if(currPosition[0]+1 > len(cave[0]) < currPosition[0]-1 or currPosition[1]+1 > len(cave)-1):
             return False
         # Check below current position
         elif(cave[currPosition[1]+1][currPosition[0]] == 0):
